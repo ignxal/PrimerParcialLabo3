@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////// PUNTO 1 //////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      class Persona {
+        constructor(id, nombre, apellido, edad) {
+          if (!id || !nombre || !apellido || !edad) {
+            throw new Error(
+              "Los campos id, nombre, apellido y edad son obligatorios."
+            );
+          }
+          this.id = id;
+          this.nombre = nombre;
+          this.apellido = apellido;
+          this.edad = edad;
+        }
+
+      }
+
+      class Heroe extends Persona {
+        constructor(id, nombre, apellido, edad, alterEgo, ciudad, publicado) {
+          super(id, nombre, apellido, edad);
+          if (!alterEgo || !ciudad || !publicado) {
+            throw new Error(
+              "Los campos alterEgo, ciudad y publicado son obligatorios."
+            );
+          }
+          if (typeof publicado !== "number")
+            throw new Error("El dato publicado debe ser de tipo numerico.");
+          if (publicado <= 1940)
+            throw new Error("La fecha de publicacion debe ser mayor a 1940.");
+
+          this.alterEgo = alterEgo;
+          this.ciudad = ciudad;
+          this.publicado = publicado;
+        }
+
+      }
+
+      class Villano extends Persona {
+        constructor(id, nombre, apellido, edad, enemigo, robos, asesinatos) {
+          super(id, nombre, apellido, edad);
+          if (!enemigo || !robos || !asesinatos) {
+            throw new Error(
+              "Los campos enemigo, robos y asesinatos son obligatorios."
+            );
+          }
+
+          if (typeof robos !== "number" || typeof asesinatos !== "number")
+            throw new Error(
+              "Los robos y asesinatos deben ser datos de tipo numerico."
+            );
+
+          if (robos < 0 || asesinatos < 0)
+            throw new Error("Los robos y asesinatos deben ser mayores a 0.");
+          this.enemigo = enemigo;
+          this.robos = robos;
+          this.asesinatos = asesinatos;
+        }
+
+
+      }
+      </script>
+  </body>
+</html>
