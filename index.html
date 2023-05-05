@@ -167,6 +167,25 @@
           dibujarTabla(datosFiltrados);
           this.datosActuales = datosFiltrados;
         });
+        // C
+        const calcularBtn = document.getElementById("calcular-btn");
+
+        calcularBtn.addEventListener("click", () => {
+          const filtro = filtroSelect.value;
+
+          // Calcular la edad promedio de los datos actuales
+          const edades = this.datosActuales.map((x) => x.edad);
+          const sumaEdades = edades.reduce(
+            (acumulador, edad) => acumulador + edad,
+            0
+          );
+          const edadPromedio = sumaEdades / edades.length;
+
+          // Mostrar la edad promedio
+          alert(
+            `La edad promedio de los elementos filtrados es: ${edadPromedio}`
+          );
+        });
       }
     </script>
   </head>
