@@ -106,6 +106,7 @@
         this.datosTotales = personas;
         this.datosActuales = personas;
         dibujarTabla(personas);
+        inicializarEventos();
       });
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +128,44 @@
           }</td><td>${dato.publicado || ""}</td><td>${
             dato.enemigo || ""
           }</td><td>${dato.robos || ""}</td><td>${dato.asesinatos || ""}</td>`;
+        });
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function inicializarEventos() {
+        // B
+        const filtroSelect = document.getElementById("filtro-select");
+
+        filtroSelect.addEventListener("change", () => {
+          let datosFiltrados = [];
+          const filtro = filtroSelect.value;
+          const datosActualesParseados = JSON.stringify(this.datosTotales);
+          const datosAux = JSON.parse(datosActualesParseados);
+
+          if (filtro.toLowerCase() === "todos") {
+            datosFiltrados = datosAux;
+          } else if (filtro.toLowerCase() === "heroes") {
+            datosFiltrados = datosAux.filter(
+              (x) =>
+                x.hasOwnProperty("alterEgo") &&
+                x.hasOwnProperty("ciudad") &&
+                x.hasOwnProperty("publicado")
+            );
+          } else if (filtro.toLowerCase() === "villanos") {
+            datosFiltrados = datosAux.filter(
+              (x) =>
+                x.hasOwnProperty("enemigo") &&
+                x.hasOwnProperty("robos") &&
+                x.hasOwnProperty("asesinatos")
+            );
+          }
+
+          // Actualizar la tabla con los datos filtrados
+          dibujarTabla(datosFiltrados);
+          this.datosActuales = datosFiltrados;
         });
       }
     </script>
