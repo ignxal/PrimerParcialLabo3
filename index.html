@@ -20,7 +20,6 @@
           this.apellido = apellido;
           this.edad = edad;
         }
-
       }
 
       class Heroe extends Persona {
@@ -40,7 +39,6 @@
           this.ciudad = ciudad;
           this.publicado = publicado;
         }
-
       }
 
       class Villano extends Persona {
@@ -63,9 +61,51 @@
           this.robos = robos;
           this.asesinatos = asesinatos;
         }
-
-
       }
-      </script>
-  </body>
+
+      window.addEventListener("load", () => {
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////// PUNTO 2 //////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        const datos = JSON.parse(
+          '[{"id":1, "nombre":"Clark", "apellido":"Kent", "edad":45, "alterego":"Superman", "ciudad":"Metropolis","publicado":2002},{"id":2, "nombre":"Bruce", "apellido":"Wayne", "edad":35, "alterego":"Batman", "ciudad":"Gotica","publicado":20012},{"id":3, "nombre":"Bart", "apellido":"Alen", "edad":30, "alterego":"Flash", "ciudad":"Central","publicado":2017},{"id":4, "nombre":"Lex", "apellido":"Luthor", "edad":18, "enemigo":"Superman", "robos":500,"asesinatos":7},{"id":5, "nombre":"Harvey", "apellido":"Dent", "edad":20, "enemigo":"Batman", "robos":750,"asesinatos":2},{"id":666, "nombre":"Celina", "apellido":"kyle", "edad":23, "enemigo":"Batman", "robos":25,"asesinatos":1}]'
+        );
+        const personas = [];
+
+        datos.forEach((x) => {
+          if ("alterego" in x && "ciudad" in x && "publicado" in x) {
+            personas.push(
+              new Heroe(
+                x.id,
+                x.nombre,
+                x.apellido,
+                x.edad,
+                x.alterego,
+                x.ciudad,
+                x.publicado
+              )
+            );
+          } else if ("enemigo" in x && "robos" in x && "asesinatos" in x) {
+            personas.push(
+              new Villano(
+                x.id,
+                x.nombre,
+                x.apellido,
+                x.edad,
+                x.enemigo,
+                x.robos,
+                x.asesinatos
+              )
+            );
+          } else {
+            personas.push(new Persona(x.id, x.nombre, x.apellido, x.edad));
+          }
+        });
+
+        console.log(personas);
+        this.datosTotales = personas;
+        this.datosActuales = personas;
+      });
+    </script>
+  </head>
 </html>
