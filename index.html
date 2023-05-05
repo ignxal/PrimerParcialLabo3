@@ -108,4 +108,205 @@
       });
     </script>
   </head>
+  <body id="cuerpo">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      /* Estilos del formulario de datos */
+      .form-datos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      label {
+        margin-right: 1rem;
+      }
+
+      button {
+        margin-left: 1rem;
+      }
+
+      .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .checkbox-container label {
+        margin-right: 1rem;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+        border: 1px solid black;
+      }
+
+      th {
+        background-color: lightgray;
+        text-align: left;
+      }
+
+      #agregar {
+        margin-top: 1rem;
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #agregar:hover {
+        background-color: darkgreen;
+      }
+
+      /* Estilos del formulario ABM */
+      form-abm {
+        display: none;
+      }
+      form {
+        margin: 0 auto;
+        width: 300px;
+      }
+
+      fieldset {
+        border: 2px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+      }
+
+      input[type="submit"],
+      input[type="button"] {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #428bca;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover,
+      input[type="button"]:hover {
+        background-color: #3071a9;
+      }
+
+      #tipo {
+        margin-bottom: 20px;
+      }
+
+      #tipo label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
+
+    <div class="form-datos" id="form-datos">
+      <label>Filtrar por:</label>
+      <select id="filtro-select">
+        <option value="todos">Todos</option>
+        <option value="heroes">Heroes</option>
+        <option value="villanos">Villanos</option>
+      </select>
+
+      <label>Calcular Edad Promedio:</label>
+      <button id="calcular-btn">Calcular</button>
+
+      <label>Mostrar Columnas:</label>
+      <div class="checkbox-container">
+        <label><input type="checkbox" checked />ID</label>
+        <label><input type="checkbox" checked />Nombre</label>
+        <label><input type="checkbox" checked />Apellido</label>
+        <label><input type="checkbox" checked />Edad</label>
+        <label><input type="checkbox" checked />AlterEgo</label>
+        <label><input type="checkbox" checked />Ciudad</label>
+        <label><input type="checkbox" checked />Publicado</label>
+        <label><input type="checkbox" checked />Enemigo</label>
+        <label><input type="checkbox" checked />Robos</label>
+        <label><input type="checkbox" checked />Asesinatos</label>
+      </div>
+
+      <table id="tabla-datos">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>AlterEgo</th>
+            <th>Ciudad</th>
+            <th>Publicado</th>
+            <th>Enemigo</th>
+            <th>Robos</th>
+            <th>Asesinatos</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body"></tbody>
+      </table>
+
+      <button id="agregar">Agregar</button>
+    </div>
+    <div id="form-abm">
+      <h1>Formulario ABM</h1>
+      <form>
+        <fieldset>
+          <legend>Datos</legend>
+          <label for="id">Id</label>
+          <input type="text" id="id" name="id" required disabled />
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required />
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" name="apellido" required />
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" name="edad" required />
+          <div id="tipo">
+            <label for="tipo-select">Tipo</label>
+            <select id="tipo-select" name="tipo" required>
+              <option value="heroe" selected>Heroe</option>
+              <option value="villano">Villano</option>
+            </select>
+          </div>
+          <label for="atributoUno" id="lblAtributoUno">AlterEgo</label>
+          <input type="text" id="atributoUno" name="atributoUno" required />
+          <label for="atributoDos" id="lblAtributoDos">Ciudad</label>
+          <input type="number" id="atributoDos" name="atributoDos" required />
+          <label for="atributoTres" id="lblAtributoTres">Publicado</label>
+          <input type="number" id="atributoTres" name="atributoTres" required />
+        </fieldset>
+        <input type="submit" id="alta" value="Agregar" />
+        <input type="button" id="modificar" value="Modificar" />
+        <input type="button" id="eliminar" value="Eliminar" />
+        <input type="button" id="cancelar" value="Cancelar" />
+      </form>
+    </div>
+  </body>
 </html>
