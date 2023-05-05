@@ -110,6 +110,102 @@
       });
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////// HELPERS //////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function mostrarABMConDatosFila(fila) {
+        const datosFila = getDatosFila(fila);
+
+        if (this.esHeroe) {
+          actualizarLblAtributos("AlterEgo", "Ciudad", "Publicado");
+          datosFila.splice(4, 0, "heroe");
+        } else {
+          actualizarLblAtributos("Enemigo", "Robos", "Asesinatos");
+          datosFila.splice(4, 0, "villano");
+        }
+
+        tooglearVisibilidadForms("none", "block");
+        tooglearBotonesABM(
+          "none",
+          "inline-block",
+          "inline-block",
+          "inline-block"
+        );
+        initFormABM(datosFila);
+      }
+
+      function actualizarLblAtributos(value, valueDos, valueTres) {
+        document.getElementById("lblAtributoUno").value = value;
+        document.getElementById("lblAtributoDos").value = valueDos;
+        document.getElementById("lblAtributoTres").value = valueTres;
+      }
+
+      function getDatosFila(fila) {
+        const celdas = Array.from(fila.querySelectorAll("td"));
+        const celdasData = celdas.map((x) => x.textContent);
+        this.esHeroe = celdasData[5] !== "";
+
+        return celdasData.filter((x) => x);
+      }
+
+      function initFormABM(datos) {
+        const campos = [
+          document.getElementById("id"),
+          document.getElementById("nombre"),
+          document.getElementById("apellido"),
+          document.getElementById("edad"),
+          document.getElementById("tipo-select"),
+          document.getElementById("atributoUno"),
+          document.getElementById("atributoDos"),
+          document.getElementById("atributoTres"),
+        ];
+
+        campos.forEach((x, i) => {
+          x.value = datos[i];
+        });
+      }
+
+      function clearABM() {
+        document.getElementById("id").value = null;
+        document.getElementById("nombre").value = null;
+        document.getElementById("apellido").value = null;
+        document.getElementById("edad").value = null;
+        document.getElementById("tipo-select").value = null;
+        document.getElementById("atributoUno").value = null;
+        document.getElementById("atributoDos").value = null;
+        document.getElementById("atributoTres").value = null;
+      }
+
+      function tooglearVisibilidadForms(displayDatos, displayABM) {
+        const formDatos = document.getElementById("form-datos");
+        const formABM = document.getElementById("form-abm");
+
+        formDatos.style.display = displayDatos;
+        formABM.style.display = displayABM;
+      }
+
+      function tooglearBotonesABM(
+        displayBtnAlta,
+        displayBtnModificar,
+        displayBtnEliminar,
+        displayBtnCancelar
+      ) {
+        const btnAlta = document.getElementById("alta");
+        const btnModificar = document.getElementById("modificar");
+        const btnEliminar = document.getElementById("eliminar");
+        const btnCancelar = document.getElementById("cancelar");
+
+        btnAlta.style.display = displayBtnAlta;
+        btnModificar.style.display = displayBtnModificar;
+        btnEliminar.style.display = displayBtnEliminar;
+        btnCancelar.style.display = displayBtnCancelar;
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       ///////////////////////////////////////////////////////// PUNTO 4 //////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // A
@@ -128,6 +224,10 @@
           }</td><td>${dato.publicado || ""}</td><td>${
             dato.enemigo || ""
           }</td><td>${dato.robos || ""}</td><td>${dato.asesinatos || ""}</td>`;
+
+          fila.addEventListener("dblclick", () => {
+            mostrarABMConDatosFila(fila);
+          });
         });
       }
 
@@ -181,10 +281,23 @@
           );
           const edadPromedio = sumaEdades / edades.length;
 
-          // Mostrar la edad promedio
           alert(
             `La edad promedio de los elementos filtrados es: ${edadPromedio}`
           );
+        });
+        // D
+        const agregarBtn = document.getElementById("agregar");
+
+        agregarBtn.addEventListener("click", () => {
+          tooglearVisibilidadForms("none", "block");
+          tooglearBotonesABM("inline-block", "none", "none", "inline-block");
+        });
+
+        const cancelarBtn = document.getElementById("cancelar");
+
+        cancelarBtn.addEventListener("click", () => {
+          clearABM();
+          tooglearVisibilidadForms("flex", "none");
         });
       }
     </script>
@@ -256,7 +369,7 @@
       }
 
       /* Estilos del formulario ABM */
-      form-abm {
+      .form-abm {
         display: none;
       }
       form {
@@ -284,15 +397,19 @@
         border-radius: 3px;
         border: 1px solid #ccc;
       }
-
+      .container {
+        display: flex;
+        justify-content: center;
+      }
       input[type="submit"],
       input[type="button"] {
         display: inline-block;
-        padding: 5px 10px;
+        padding: 0.4em 0.9em;
         background-color: #428bca;
         color: #fff;
         border: none;
         border-radius: 3px;
+        margin-left: 0.3em;
         cursor: pointer;
       }
 
@@ -356,7 +473,7 @@
 
       <button id="agregar">Agregar</button>
     </div>
-    <div id="form-abm">
+    <div id="form-abm" class="form-abm">
       <h1>Formulario ABM</h1>
       <form>
         <fieldset>
@@ -379,14 +496,16 @@
           <label for="atributoUno" id="lblAtributoUno">AlterEgo</label>
           <input type="text" id="atributoUno" name="atributoUno" required />
           <label for="atributoDos" id="lblAtributoDos">Ciudad</label>
-          <input type="number" id="atributoDos" name="atributoDos" required />
+          <input type="text" id="atributoDos" name="atributoDos" required />
           <label for="atributoTres" id="lblAtributoTres">Publicado</label>
           <input type="number" id="atributoTres" name="atributoTres" required />
         </fieldset>
-        <input type="submit" id="alta" value="Agregar" />
-        <input type="button" id="modificar" value="Modificar" />
-        <input type="button" id="eliminar" value="Eliminar" />
-        <input type="button" id="cancelar" value="Cancelar" />
+        <div class="container">
+          <input type="submit" id="alta" value="Agregar" />
+          <input type="button" id="modificar" value="Modificar" />
+          <input type="button" id="eliminar" value="Eliminar" />
+          <input type="button" id="cancelar" value="Cancelar" />
+        </div>
       </form>
     </div>
   </body>
