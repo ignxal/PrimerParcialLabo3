@@ -105,7 +105,30 @@
         console.log(personas);
         this.datosTotales = personas;
         this.datosActuales = personas;
+        dibujarTabla(personas);
       });
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////// PUNTO 4 //////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      // A
+      function dibujarTabla(datos) {
+        // Obtenemos los objetos del punto 2 por parametro
+        // Procesamos los objetos y los agregamos a la tabla
+        const tablaBody = document.getElementById("tabla-body");
+        tablaBody.innerHTML = "";
+
+        datos.forEach((dato) => {
+          const fila = tablaBody.insertRow();
+          fila.innerHTML = `<td>${dato.id}</td><td>${dato.nombre}</td><td>${
+            dato.apellido
+          }</td><td>${dato.edad}</td><td>${dato.alterEgo || ""}</td><td>${
+            dato.ciudad || ""
+          }</td><td>${dato.publicado || ""}</td><td>${
+            dato.enemigo || ""
+          }</td><td>${dato.robos || ""}</td><td>${dato.asesinatos || ""}</td>`;
+        });
+      }
     </script>
   </head>
   <body id="cuerpo">
