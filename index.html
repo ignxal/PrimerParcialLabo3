@@ -451,7 +451,6 @@
               return ordenAscendente ? resultado : -resultado;
             });
 
-            // Actualizar la tabla con los datos ordenados
             const filasOrdenadas = datos.map((datosFila) => {
               const fila = document.createElement("tr");
               datosFila.forEach((dato) => {
@@ -468,6 +467,23 @@
 
             // Cambiar el orden actual de la columna
             ordenAscendente = !ordenAscendente;
+          });
+        });
+
+        // I
+        const checkboxes = document.querySelectorAll(
+          '#form-datos input[type="checkbox"]'
+        );
+
+        checkboxes.forEach((checkbox, index) => {
+          checkbox.addEventListener("change", () => {
+            const celdas = document.querySelectorAll(
+              `#tabla-datos td:nth-child(${index + 1})`
+            );
+
+            celdas.forEach((celda) => {
+              celda.style.display = checkbox.checked ? "table-cell" : "none";
+            });
           });
         });
       }
@@ -524,7 +540,17 @@
         background-color: lightgray;
         text-align: left;
       }
-
+      #calcular-btn {
+        background-color: crimson;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      #agregar:hover {
+        background-color: darkred;
+      }
       #agregar {
         margin-top: 1rem;
         background-color: green;
@@ -572,6 +598,7 @@
         display: flex;
         justify-content: center;
       }
+
       input[type="submit"],
       input[type="button"] {
         display: inline-block;
@@ -612,16 +639,44 @@
 
       <label>Mostrar Columnas:</label>
       <div class="checkbox-container">
-        <label><input type="checkbox" checked />ID</label>
-        <label><input type="checkbox" checked />Nombre</label>
-        <label><input type="checkbox" checked />Apellido</label>
-        <label><input type="checkbox" checked />Edad</label>
-        <label><input type="checkbox" checked />AlterEgo</label>
-        <label><input type="checkbox" checked />Ciudad</label>
-        <label><input type="checkbox" checked />Publicado</label>
-        <label><input type="checkbox" checked />Enemigo</label>
-        <label><input type="checkbox" checked />Robos</label>
-        <label><input type="checkbox" checked />Asesinatos</label>
+        <label for="check-id"
+          ><input id="check-id" type="checkbox" checked />ID</label
+        >
+        <label for="check-nombre"
+          ><input id="check-nombre" type="checkbox" checked />Nombre</label
+        >
+        <label for="check-apellido"
+          ><input id="check-apellido" type="checkbox" checked />Apellido</label
+        >
+        <label for="check-edad"
+          ><input id="check-edad" type="checkbox" checked />Edad</label
+        >
+        <label for="check-alterego"
+          ><input id="check-alterego" type="checkbox" checked />AlterEgo</label
+        >
+        <label for="check-ciudad"
+          ><input id="check-ciudad" type="checkbox" checked />Ciudad</label
+        >
+        <label for="check-publicado"
+          ><input
+            id="check-publicado"
+            type="checkbox"
+            checked
+          />Publicado</label
+        >
+        <label for="check-enemigo"
+          ><input id="check-enemigo" type="checkbox" checked />Enemigo</label
+        >
+        <label for="check-robos"
+          ><input id="check-robos" type="checkbox" checked />Robos</label
+        >
+        <label for="check-asesinatos"
+          ><input
+            id="check-asesinatos"
+            type="checkbox"
+            checked
+          />Asesinatos</label
+        >
       </div>
 
       <table id="tabla-datos">
