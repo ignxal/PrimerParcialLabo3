@@ -431,6 +431,45 @@
             lblAtributoTres.textContent = "Asesinatos";
           }
         });
+
+        // H
+        const tabla = document.querySelector("#tabla-datos");
+        const encabezados = tabla.querySelectorAll("th");
+        const encabezadosArr = Array.from(encabezados);
+
+        encabezadosArr.forEach((encabezado, index) => {
+          let ordenAscendente = true;
+          encabezado.addEventListener("click", () => {
+            const filas = Array.from(tabla.querySelectorAll("tbody tr"));
+            const datos = filas.map((fila) =>
+              Array.from(fila.children).map((td) => td.textContent.trim())
+            );
+
+            // Ordenar los datos según la columna clickeada y el orden actual
+            datos.sort((a, b) => {
+              const resultado = a[index].localeCompare(b[index]);
+              return ordenAscendente ? resultado : -resultado;
+            });
+
+            // Actualizar la tabla con los datos ordenados
+            const filasOrdenadas = datos.map((datosFila) => {
+              const fila = document.createElement("tr");
+              datosFila.forEach((dato) => {
+                const td = document.createElement("td");
+                td.textContent = dato;
+                fila.appendChild(td);
+              });
+              return fila;
+            });
+            tabla.querySelector("tbody").innerHTML = "";
+            filasOrdenadas.forEach((fila) =>
+              tabla.querySelector("tbody").appendChild(fila)
+            );
+
+            // Cambiar el orden actual de la columna
+            ordenAscendente = !ordenAscendente;
+          });
+        });
       }
     </script>
   </head>
